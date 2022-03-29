@@ -7,7 +7,7 @@
 <html>
 
 <head>
-  <script> var useLocalAPIs = false; </script>
+  <script> var useLocalAPIs = true; </script>
   
   <title></title>
 
@@ -146,12 +146,12 @@
       <br><div style="height:20px"></div><hr>   
           
       <div style="width:100%;margin:auto">
-        <a id="親友一" style="font-size: 14px; color: white; float:left; margin-left:5%; margin-top:10px; background-color:#FF4350; padding:5px;border-radius:8px; width:28%" onclick="displayID1()">親友一</a> 
+        <a id="親友1" style="font-size: 14px; color: white; float:left; margin-left:5%; margin-top:10px; background-color:lightgray; padding:5px;border-radius:8px; width:28%" onclick="displayID1()">尚未綁定</a> 
 
-        <a id="親友二" style="font-size: 14px; color: white; float:left; margin-left:3%; margin-top:10px; background-color:lightgray; padding:5px;border-radius:8px; width:28% " onclick="displayID2()">親友二</a>   
+        <a id="親友2" style="font-size: 14px; color: white; float:left; margin-left:3%; margin-top:10px; background-color:lightgray; padding:5px;border-radius:8px; width:28% " onclick="displayID2()">尚未綁定</a>   
 
-        <a id="親友三" style="font-size: 14px; color: white; float:left; margin-left:3%; margin-top:10px; background-color:lightgray
-        ; padding:5px;border-radius:8px; width:28% " onclick="displayID3()">親友三</a> 
+        <a id="親友3" style="font-size: 14px; color: white; float:left; margin-left:3%; margin-top:10px; background-color:lightgray
+        ; padding:5px;border-radius:8px; width:28% " onclick="displayID3()">尚未綁定</a> 
       </div>
               
     </div>
@@ -172,7 +172,7 @@
           </a>
         </script>
       </ul>
-    </div>     
+    </div>             
   </div>  
 
   <div id="forms" data-role="view" data-title="查詢親友" data-init="initForm" data-use-native-scrolling="true" style="font-family: 'Noto Sans TC'">
@@ -181,21 +181,21 @@
       <ul data-role="listview" data-style="inset">
         <li>
           <label class="km-label-above">第一位親友姓名
-              <input id="queryId1" type="text" class="NotoSansFont" placeholder="尚未綁定"/>
+              <input id="queryId1" type="text" class="NotoSansFont" style="width:70%" placeholder="尚未綁定"/>
           </label>
-          <a id="親友一" style="font-size: 14px; color: white; float:right; background-color:#FF4350; padding:5px;border-radius:8px; width:12%" onclick="displayID1()">綁定</a>
+          <a id="親友綁定1" style="font-size: 14px; color: white; float:right; background-color:#FF4350; padding:5px;border-radius:8px; width:24%; text-align:center;" onclick="bindID1()">綁定</a>
         </li>  
         <li>
           <label class="km-label-above">第二位親友姓名
-              <input id="queryId2" type="text" class="NotoSansFont" placeholder="尚未綁定"/>
+              <input id="queryId2" type="text" class="NotoSansFont" style="width:70%" placeholder="尚未綁定"/>
           </label>
-          <a id="親友二" style="font-size: 14px; color: white; float:right; background-color:#FF4350; padding:5px;border-radius:8px; width:12%" onclick="displayID1()">綁定</a>
+          <a id="親友綁定2" style="font-size: 14px; color: white; float:right; background-color:#FF4350; padding:5px;border-radius:8px; width:24%; text-align:center" onclick="bindID2()">綁定</a>
         </li> 
         <li>
           <label class="km-label-above">第三位親友姓名
-              <input id="queryId3" type="text" class="NotoSansFont" placeholder="尚未綁定"/>
+              <input id="queryId3" type="text" class="NotoSansFont" style="width:70%" placeholder="尚未綁定"/>
           </label>
-          <a id="親友三" style="font-size: 14px; color: white; float:right; background-color:#FF4350; padding:5px;border-radius:8px; width:12%" onclick="displayID1()">綁定</a>
+          <a id="親友綁定3" style="font-size: 14px; color: white; float:right; background-color:#FF4350; padding:5px;border-radius:8px; width:24%; text-align:center" onclick="bindID3()">綁定</a>
         </li>    
         
         <li style="display:none">
@@ -207,7 +207,7 @@
           <label class="km-label-above">電話
             <input id="formUserPhone" class="NotoSansFont" type="text" placeholder="格式: 09XX123456"/> 
           </label> 
-        <li style="display:none">
+        <li style="">
           <label class="km-label-above">HWBMI_ID
             <input id="formHWBMI_ID" class="NotoSansFont" type="text" /> 
           </label> 
@@ -216,7 +216,27 @@
                                                                                                             
       </ul>
     </div>
-
+    
+    <div id="綁定dialog" style="background-color:white; width:60%; height:50%; position:absolute; left:20%; top:20%; border-radius:10px; z-index:1; padding-left:15px; padding-right:15px; display:none">
+      <div style="height:10px; float:right; margin-right:-5px" onclick="bindDialogCancel()">X</div>
+      <div style="height:10px;"></div>
+      <div id="綁定dialogTitle" style="height:30px; text-align:center">綁定</div>
+      <label style="font-size:14px; color:gray">綁定 ID</label>
+      <div style="height:5px"></div>
+      <input id="要綁定的ID" type="text" class="NotoSansFont" style="border:none; background-color: antiquewhite;border-radius:10px; font-size:20px; width:190px" placeholder="請洽相關人員取得 ID"/><br>
+      
+      <div style="height:20px"></div>
+      <label style="font-size:14px; color:gray">綁定姓名</label>
+      <div style="height:5px"></div>
+      <input id="要綁定的Name" type="text" class="NotoSansFont" style="border:none; background-color: antiquewhite;border-radius:10px; font-size:20px; width:190px" placeholder="請輸入綁定人姓名"/><br><br>
+      為保護您親友的隱私，ID 須和姓名正確配對，才能完成綁定
+          
+      <div style="height:30px"></div>      
+      <a id="" style="font-size: 14px; color: white; background-color:#FF4350; padding:5px;border-radius:8px; width:24%; text-align:center; float:left; margin-left:20%" onclick="bindDialogConfirm()">確定</a> 
+      <a id="" style="font-size: 14px; color: white; background-color:lightgray; padding:5px;border-radius:8px; width:24%; text-align:center; float:right; margin-right:20%" onclick="bindDialogCancel()">取消</a>                      
+           
+    </div>      
+    
     <div id="個人資料使用Div" align="center" style="display:block">
       <br>
       點擊 <b>綁定</b> 表示您同意個人資料使用條款
@@ -255,7 +275,6 @@
       </div> 
 
     </div> 
-
     
   </div>  
   
@@ -303,16 +322,119 @@
     var 店面名稱;
     var 機器序號;
     var 已經是會員;
+    var 要綁定第幾位親友;
+    var 親友查詢Ids;
+    var selectedId;
             
     // checkInputParam() 和 checkUserIdExist() 都是在 functions.js 定義
     console.log("check User");
-    if (checkInputParam()) checkUserIdExist();
+    //if (checkInputParam()) checkUserIdExist();
+    if (checkInputParam()) 取得親友查詢Ids();
     
+    function displayID1(){
+      if ($("#親友1").text()=="尚未綁定") return;
+      
+      $("#親友1").css('background-color','#FF4350')
+      $("#親友2").css('background-color','lightgray')
+      $("#親友3").css('background-color','lightgray')
+      selectedId=0;
+      
+      $("#formHWBMI_ID").val(親友查詢Ids[selectedId].Id);
+      
+      取得量測記錄(measurementSource);
+    }
+   
+    function displayID2(){
+      if ($("#親友2").text()=="尚未綁定") return;
+      
+      $("#親友1").css('background-color','lightgray')
+      $("#親友2").css('background-color','#FF4350')
+      $("#親友3").css('background-color','lightgray')
+      selectedId=1;
+      
+      $("#formHWBMI_ID").val(親友查詢Ids[selectedId].Id);
+      
+      取得量測記錄(measurementSource);
+    }
+    
+    function displayID3(){
+      if ($("#親友3").text()=="尚未綁定") return;
+      
+      $("#親友1").css('background-color','lightgray')
+      $("#親友2").css('background-color','lightgray')
+      $("#親友3").css('background-color','#FF4350')
+      selectedId=2;
+      
+      $("#formHWBMI_ID").val(親友查詢Ids[selectedId].Id);
+      
+      取得量測記錄(measurementSource);
+    }    
+    
+    function bindID1(){
+      要綁定第幾位親友=0;
+      $("#綁定dialogTitle").text("綁定第一位親友");
+      $("#綁定dialog").show();
+    }
+    
+    function bindID2(){
+      要綁定第幾位親友=1;
+      $("#綁定dialogTitle").text("綁定第二位親友");
+      $("#綁定dialog").show();
+    }
+    
+    function bindID3(){
+      要綁定第幾位親友=2;
+      $("#綁定dialogTitle").text("綁定第三位親友");
+      $("#綁定dialog").show();
+    }    
+    
+    async function bindDialogConfirm(){
+      console.log("aaa");
+      if (要綁定第幾位親友<0 || 要綁定第幾位親友>2) {
+        alert("錯誤，請重新操作");
+        $("#綁定dialog").hide();
+        return;
+      }
+      
+      if (($("#要綁定的ID").val()=='' || $("#要綁定的ID").val()==undefined || 
+           $("#要綁定的Name").val()=='' || $("#要綁定的Name").val()==undefined)){
+        alert("ID 或姓名不得為空白");
+        return;        
+      }
+      
+      
+      $("#綁定dialog").hide();
+      
+      //call API=05 lineId, No, ID
+      //http://localhost:5000/?API=05&LineId=U8570ed5006325d504933612308d0fddfx&UserId=0000000000&No=0&Name=Test0
+      
+      $.loading.start('綁定 親友查詢的 hwBMIId');
+      paramToSend = "?API=05" + 
+                    "&LineId=" + userId[1] + 
+                    "&No="     + 要綁定第幾位親友.toString() +
+                    "&UserId=" + $("#要綁定的ID").val() +
+                    "&Name="   + $("#要綁定的Name").val();
         
-    // Move 讀取店面名稱和機器序號 into checkUserIdExist()
-  
-    //app.navigate('#forms');
+      console.log(apiSite, paramToSend);
 
+      
+      var res;
+      var resStr = await callAPI(paramToSend, '檢查是否已填寫必要資料'); 
+      console.log(resStr);
+      
+      if (resStr.includes("ERROR")){
+        alert("綁定失敗: 請檢查 ID 和 姓名 是否正確。");
+      } else {
+        取得親友查詢Ids();
+      }
+      $.loading.end();      
+      
+    }
+    
+    function bindDialogCancel(){
+      $("#綁定dialog").hide();      
+    }    
+    
   </script>
 </body>
 

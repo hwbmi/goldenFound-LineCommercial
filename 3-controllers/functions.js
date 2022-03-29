@@ -82,6 +82,72 @@ function callAPI(param, loadingMessage) {
   });
 }
 
+async function 取得親友查詢Ids() {
+
+  $.loading.start('取得親友查詢Ids');
+  paramToSend = "?API=06" + "&LineId=" + userId[1];
+
+  console.log(apiSite);
+  
+  var res;
+  var resStr = await callAPI(paramToSend, '檢查是否已填寫必要資料'); 
+  $.loading.end();
+  
+  親友查詢Ids = JSON.parse(resStr);
+  console.log(親友查詢Ids);
+  
+  var validId=-1;
+  
+  $("#formHWBMI_ID").val(親友查詢Ids[0].Id);
+  var idIdx;
+  for (var i=親友查詢Ids.length-1;i>=0;i--){
+    if (親友查詢Ids[i].Id=="-1"){
+      console.log("No ID");
+      idIdx="#親友"+(i+1).toString();
+      $(idIdx).text("尚未綁定");
+
+      idIdx="#queryId"+(i+1).toString();
+      $(idIdx).val("尚未綁定");
+
+      idIdx="#親友綁定"+(i+1).toString();
+      $(idIdx).text("綁定");  
+      
+      //continue;
+    } else {
+      idIdx="#親友"+(i+1).toString();
+      $(idIdx).text(親友查詢Ids[i].名字);
+
+      idIdx="#queryId"+(i+1).toString();
+      $(idIdx).val(親友查詢Ids[i].名字);
+
+      idIdx="#親友綁定"+(i+1).toString();
+      $(idIdx).text("重新綁定");
+
+      validId=i;
+    }
+
+  }
+  
+  
+  console.log(validId);
+  
+  if (validId==-1) {
+    app.navigate('#forms');     
+    return;
+  }
+  
+  selectedId =validId;
+  $("#親友"+(selectedId+1).toString()).css('background-color','#FF4350')
+  
+  $("#formHWBMI_ID").val(親友查詢Ids[selectedId].Id);
+  取得量測記錄(measurementSource);
+  refresh=true;
+  measurementSource.read(); 
+   
+  return;
+  
+}
+
 async function checkUserIdExist() {
 
   $.loading.start('檢查是否已註冊');
@@ -170,7 +236,7 @@ async function 註冊會員() {
     
     var res = await callAPI(paramToSend, '寫入資料');
     
-    if (res == "API:03 會員資料Line綁定寫入成功") {
+    if (res == "API:03 會員資料Line綁定hwBMI寫入成功") {
       alert("資料更新成功，回到量測頁面");
       checkUserIdExist();
       已經是會員 = true;
